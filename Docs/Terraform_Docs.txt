@@ -1,0 +1,50 @@
+Why IAC?
+write configuration script to automate creating, updating or destroying cloud infra.
+ *IAC is a blue print for infra.
+ *allows to easily share, version cloud infra.
+ *Reliable- changes are idempotent(always same result), consistant, repeatable and predictable
+
+Terraform is declarative and supports loops(for each), dynamic blocks, locals, Data structure(Maps, collections) 
+
+Lifecycle:
+ number of clearly defined work phases used to plan, design, build, test, deliver, maintain, destroy cloud infra.
+ 
+Configuration drift:
+- when provisioned infra has unexpected conf change due to - manual cange, maliius actor, side effect of SDK, CLI.
+How to detect? - *cloud providers has compliance tool to detect drift. (AWS config, Azure policies, GCP security Health Analytics), AWS cloud-formation has in-built drift detection.
+                *Terraform have state file
+How to correct? Terraform refresh or plan cmd, destroy infra and create again, manually correcting(not preferred)
+Hot to prevent? - Immutable infra,always create and destroy, never reuse, Blue Green deployment
+                     servers are never modified after deployed - Baking AMI images or containers via AWS Iage Builder or Hashicorp Packer, or a build server e.g GCP cloud run. or Golden AMI
+					 (The process of baking an AMI image refers to creating an immutable base image that becomes the basis for creating application EC2 instances or server-groups. 
+					  This process of installing an application on the existing OS, and generating an AMI from the current state is known as Baking AMI.)
+                - Using GitOps to version control IaC, peer review every single via Pull Requests change to infra.
+
+					
+What is Terraform? - open source and cloud-agnostic infrastructure as colud(IaC) tool, uses declarative config files, in HCL (hashiCorp Config language).
+feature of terraform- 
+   1. Installable modules
+   2. Plan and Predict changes
+   3. dependancy graphing
+   4. State management
+   5. provision infrastructure in familiar languages via AWS CDK.
+   6 1000+ providers
+   
+ Terraform Lifecycle -
+   Code(write file) --> init(initialize project or Pull latest providers and modules) --> Plan(shows perview of changes) --> Validate(Types and values are valid) --> apply/destroy
+  
+*Change Management- std. approach to apply change. resources are modified and applied via config script.
+ Change automation- way of automatically  creating consistent, systemic and predictable way of managing change via controls and policis.
+ Terraform uses change automation in the form of Execution Plans and resource graphs to apply and review complex changesets
+        *ChangeSets - a clloection of commits that represent changes made to a versioning repo. IaC uses changesets so you can see what has changed by who over time.
+		
+* you can visualize execution plan as graph using terraform graph cmd. terrafrom will output a graphViz file (install graphViz)
+        terraform graph | dot -Tsvg > graph.svg
+		
+		
+* Terraform is split into 
+   1. terraform Core - uses remote procedure calls to communicate with terraform plugins. (core is written in golang)
+   2. terraform plugin - expose an implementation for specific service or provisioner.
+   
+*terraform Best practices - www.terraform-best-practices.com   
+					

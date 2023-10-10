@@ -1,0 +1,17 @@
+providers are terraform plugin that allow u to interact with:
+ 1. Cloud service providers (AWS,GCP,Azure)
+ 2. SaaS (github,angolia,stripe)
+ 3. Other Api (K8s, Postgres)
+
+Providers are manditory
+
+providers comes in three tiers:
+ 1. official - publish by the company that owns the provider tech or service.
+ 2. verified - activly maintained by terraform and Provider
+ 3. Community - publish by community, no guarantee
+
+*Provider is a plugin that map to cloud service providers api. 
+*Module is group of config files that provide commomn config functionality. Reusable ( you can use already created modules from terraform registry )
+
+-> terraform providers (to get list of current providers)
+

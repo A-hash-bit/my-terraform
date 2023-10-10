@@ -1,0 +1,50 @@
+Terraform Provisioners install software, edit files and provision m/c created with terraform.
+   *provioner types 1. cloud-init 2.packer
+
+
+1.local_exec - to run any cmd on local system
+eg. provisioner "local_exec" {
+    command = "echo ${self.private_ip}" >> ip.txt
+}
+
+2.Remote_exec - to execute cmds on target resource after its provisioned.
+ remote cmd have 3 different modes
+ 1.inline - list of cmd strings
+  provisioner "remote-exec" {
+   inline = {
+      some cmd
+ }
+}
+ 
+ 2.Script/scripts - local script/scripts will be copied and executed on remote server
+ provisioner "remote-exec" {
+   script/s = {
+      "./script1.sh",
+      "./script2.sh"
+ }
+}
+
+3.File provisioner - to copy file/dir from local to server
+ provisioner "file" {
+   content = "ami used: ${self.ami}"  (can directly write data to remote server)
+   source = "filepath"
+   destination= "/path/to /copy"
+}
+
+* Connection Block - tells provisioners/resource how to establish a connection
+  connection {
+     type = "ssh"
+     user = "root"
+     password = "${var.root_password}"
+     host = "${var.host}"
+  }
+
+* Null_resource
+* terraform_data 
+
+data block (to get data from outside into terraform)
+   data "template_file" "user_data" {
+      template = files("/path/to/file.txt") 
+}
+to access - data.template_file,user_data
+
