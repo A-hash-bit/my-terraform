@@ -1,0 +1,44 @@
+
+Data source allow terraform to use info defined outside of terraform.  defined by another seperate Terraform configuration, or modified by functions.
+use darta block
+
+data "aws_ami" "web" {   #Looking for aws ami with some filters
+  filter {
+    name = "state"
+	values = ["available"]
+   }
+   
+   filter {
+     name = "tag:Component"
+	 values = ["web"]
+	 
+   }
+   most_recent  = true
+}
+
+resource "aws_instance" "web"{
+  ami  = data.aws_ami.web.id
+  instance_type = t1.micro
+}
+
+##Reference to Named Values
+Terraform makes several kinds of named values available. Each of these names is an expression that references the associated value. 
+You can use them as standalone expressions, or combine them with other expressions to compute new values.
+Named Values are built-in-expression to reference various values.
+1. Resourcesv -- resource-type.<name>
+2. Input variables -- var.<name>
+3. Local values -- loval.<name>
+4. Child module output -- module.<name>
+5. Data Source -- data.<Data type>.<name>
+
+Filesystem and workspace info
+ path.module - path of module where expression is placed
+ path.root - path of root module of the configurations
+ path.cwd - path of current working directory
+ terraform.workspace - name of currently selected workspace
+
+Block local values (within the body of block)
+ count.index (when u use count meta argument)
+ each.key/ each.value (for_each meta argument)
+ self.<attribute>  - self reference info within block (provisioners and connections)
+ 
