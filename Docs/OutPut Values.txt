@@ -1,0 +1,17 @@
+output values are computed after terrafor apply is performed
+output allows you:
+ *obtain info after resource pe=rovisioning e.g public IP
+ *output a file of values for programatic intergration
+ *cross-reference stack via outputs in a state file via terraform_remote-state
+ 
+ output "db_password" {
+   value = aws_db_instance.db.password
+   description = ""
+   sensitive = true  (does not show in terminal - if logging or other use) 
+ }
+ 
+ to print values--> terraform output (print all values within the state files)
+                --> terraforn output <particular field> 
+				--> terraform output -json
+				--> curl ${terraform putput -raw lb_url}  for programatic use
+* sensitive does not protect values in state file.

@@ -1,0 +1,17 @@
+Terraform modules is a group of configuration files that provide common config functionality
+ 1. It enforce best practice.
+ 2. reduce amount of code
+ 3. reduce time to develop scripts
+ 
+ There are many modules present open source (e.g. aws_vpc, ec2, azure compute, az network module) ---> Just source them with module block and configure the values
+ 
+ 
+ 
+* Fine line between using Terraform and Ansible
+Take example of postgress
+Terraform providers - use for create postgress DB
+modules - to create users
+provisioners - one time scripts/ data manipulation at time of setup DB
+
+Ansible - 
+  Taking backup of DB, truncate daily tables (repeatable tasks) 

@@ -1,0 +1,66 @@
+*Input variables
+input variables (var or terra. var.) are parameters for terraform modules. that way we pass data/values to config files
+can declare in root or child module and define with variable block
+
+variable "image_id" {
+    type = string
+	description = "description of block"
+}
+
+variable "availability_zone_names" {
+   type = list(string)
+   default = ["us-east-1a"]
+}
+
+variable "docker_ports" {
+   type = list(object({
+        internal = number
+		external = number
+		protocol = string
+   }))
+   default = [
+   {
+     internal = 8300
+	 external = 8300
+	 protocol = 'tcp'
+   }
+   ]
+}
+
+here u can have:
+  description: documentation about variable.
+  validation: block to define rules in addition to type constraints
+  sensitive: Limit terraform UI output when var is used in config.
+  
+=================================================================================
+Way to load input vars.
+1.*Variable defination files 
+ - allow u to set values for multiple var. at once , files are named .tfvars or .tfvars.json
+   by default if present terraform.tfvars file will be automatically loaded.
+   so u don't need to change any file/module just write .tfvars file with ur values
+image_id = "ami-abc123"
+availability_zone_names = [
+   "us-east-1a",
+   "us-east-1c"
+]
+
+*Additional tfvars files (custom files will not autoload)
+ file - my_vars.tfvars, dev.tfvars, prod.tfvars ----need to pass with apply cmd (terraform apply -var-file dev.tfvars)
+ file - my_vars.auto.tfvars --- will load automatically
+ 
+*If u want to over ride one var. via cmd line
+-var ec2_type="t2.medium"
+=================================================================================
+2. Variables via Env. vars
+-  another way of loading input variables is env vars. its common if u have CI-CD process for terraform. TF_VAR_<name> vars will be set on server. and terraform will load it in CI-CD pipeline.
+   e.g export TF_VARS_image_id=ami-abc123
+-  with apply/plan pass env var via cmd line --> TF_VARS_my_var_nam
+
+#Var defination Precedence
+ 5.env vars
+ 4.terraform.tfvars
+ 3.terraform.tfvars.json
+ 2.*auto.tfvars/json
+ 1.-var and -var-file 
+ 
+ 

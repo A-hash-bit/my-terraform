@@ -1,0 +1,34 @@
+hashicorp config file/ terraform files conatins info about providers and resources
+
+Written in Terraform language  HCL - Hashicorp Conf. language
+syntax:
+
+<block Type> <Block Label> <Block label>
+resource "aws_vpc" "my_vpc" {
+ <Identifier> = <Expression> 
+ cidr_block = var.base_cidr_block
+}
+ 
+these file end with .tf
+
+and json syntax file ends with  .tf.json (not used much)
+
+*Terraform setting
+Special terraform block to congigure behaviors of terraform 
+terraform{
+   required_providers {
+     aws = {
+	   version = ">=2.7.0"
+	   source = "hashicorp/aws"
+	 }
+   }
+   #can have required_version block for version of terraform
+   #can have experiments block
+   #provider_metadata
+}
+
+HCL is open source toolkit for creating structured config language that are both human and machine friendly
+HCL is used by terraform and extends its functionality with dynamic block, foreach..., valut and packer aslo use it.
+
+
+
