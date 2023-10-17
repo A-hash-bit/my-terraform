@@ -1,0 +1,1 @@
+Terraform defines several meta-arguments, which can be used with ayy resource type to change the behaviour of resources.
