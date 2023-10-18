@@ -1,0 +1,8 @@
+When u perform terraform apply it will perform 
+ 1. create - resource that exist in configuration but are not associated with real infra obj. in state (i.e new resource). represented by +
+ 2. destory - resource tat exist in state but no longer exist in configuration. represented by -
+ 3. update in-place - resources whose arguments have changed. represented by ~
+ 4. destroy and re-create - resource whose args changed but cannot be updated in-place due to remote API limitations. represented by -/+
+    there are some resources that needs to destroy and recreate, can be done by replace cmd or older terraform tank cmd.
+
+#Lifecycle block
